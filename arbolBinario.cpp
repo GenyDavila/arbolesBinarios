@@ -16,7 +16,7 @@ struct Nodo{
 /* Prototipos de funciones*/
 void menu();
 struct Nodo* insertarNodo(int info,struct Nodo *raiz);
-struct Nodo* crearNodo(int info, int type);
+struct Nodo* crearNodo(int info);
 
 /* Función principal*/
 int main(){
@@ -28,7 +28,7 @@ int main(){
 		cin>>op;
 		switch(op){
 			case 1:
-				cout<<"\tDato a ingresar:";
+				cout<<"\tDato a ingresar: ";
 				cin>>info;
 				raiz = insertarNodo(info,raiz);
 			break;
@@ -58,31 +58,37 @@ int main(){
 struct Nodo* insertarNodo(int info,struct Nodo *raiz){
 	struct Nodo *nodo;
 	struct Nodo *nuevo;
-	bool doble; // toma el valor true cuando se intentar ingresar un número que ya está en el árbol
+	bool doble = false; // toma el valor true cuando se intentar ingresar un número que ya está en el árbol
 	if(raiz==NULL){ // si el árbol está vacío
 		raiz = crearNodo(info);
 		raiz->tipo = 0;
-		cout<<"\n\tNodo creado como raiz del arbol."<<endl;
+		cout<<"\n\tEl nodo fue creado como la raiz del arbol..."<<endl;
 	}else{
 		nodo = raiz; // apuntar a la raíz del árbol
 		nuevo = crearNodo(info);
-		while(!doble && nuevo->padre==false){
-			if(info==nodo->dato){
-				cout<<"El nodo ya se encuentra en el arbol."<<endl;
+		while(!doble && nuevo->padre==NULL){
+			if(info == nodo->dato){
+				cout<<"\n\tEl nodo ya se encuentra en el arbol..."<<endl;
 				doble = true;
-			}else if(info<nodo->dato){
+			}else if(info < nodo->dato){
 				if(nodo->izq==NULL){
 					nuevo->padre = nodo;
 					nodo->izq = nuevo;
 					nuevo->tipo = 1;
+					cout<<"\n\tDato insertado correctamente..."<<endl;
+					cout<<"\tNodo padre: "<<nuevo->padre->dato<<endl;
+					cout<<"\tHijo: "<<nuevo->tipo<<endl;
 				}else{
 					nodo = nodo->izq;
 				}
 			}else{ //if(info>nodo->dato)
-				if(nodo->der==NULL){
+				if(nodo->der == NULL){
 					nuevo->padre = nodo;
 					nodo->der = nuevo;
 					nuevo->tipo = 2;
+					cout<<"\n\tDato insertado correctamente..."<<endl;
+					cout<<"\tNodo padre: "<<nuevo->padre->dato<<endl;
+					cout<<"\tHijo: "<<nuevo->tipo<<endl;
 				}else{
 					nodo = nodo->der;
 				}
