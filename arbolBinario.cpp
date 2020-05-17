@@ -17,6 +17,7 @@ struct Nodo{
 void menu();
 struct Nodo* insertarNodo(int info,struct Nodo *raiz);
 struct Nodo* crearNodo(int info);
+void preorden(struct Nodo *raiz);
 
 /* Función principal*/
 int main(){
@@ -53,7 +54,45 @@ int main(){
 		system("cls");
 	}while(op!=5);
 }
- 
+
+/* Función que muestra el recorrido en preorden del árbol*/
+void preorden(struct Nodo *raiz){
+	struct Nodo *nodo;
+	nodo = raiz;
+	while(nodo->revision<3){
+		switch(nodo->revision){
+			case 0:
+				cout<<nodo->dato<<" ";
+				nodo->revision = 1;
+			break;
+			case 1:
+				if(nodo->izq!=NULL){
+					nodo = nodo->izq;
+				}
+				nodo->revision = 2;
+			break;
+			case 2:
+				if(nodo->der==NULL){
+					nodo->revision = 0;
+					if(nodo->tipo=2){
+						nodo->padre->revision = 3;
+					}
+					nodo = nodo->padre;
+				}else{
+					nodo = nodo->der;
+				}
+			break;
+			case 3:
+				nodo->revision = 0;
+				if(nodo->tipo==2){
+					nodo->padre->revision = 3;
+				}
+				nodo = nodo->padre;
+			break;
+		}
+	}
+}
+
 /* Función que inserta un nodo en el árbol*/
 struct Nodo* insertarNodo(int info,struct Nodo *raiz){
 	struct Nodo *nodo;
