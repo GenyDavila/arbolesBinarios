@@ -36,6 +36,7 @@ int main(){
 			case 2:
 			break;
 			case 3:
+				preorden(raiz);
 			break;
 			case 4:
 			break;
@@ -57,27 +58,34 @@ int main(){
 
 /* Función que muestra el recorrido en preorden del árbol*/
 void preorden(struct Nodo *raiz){
+	cout<<"\n\tPreorden: ";
 	struct Nodo *nodo;
 	nodo = raiz;
-	while(nodo->revision<3){
+	while(raiz->revision<3){
 		switch(nodo->revision){
 			case 0:
 				cout<<nodo->dato<<" ";
 				nodo->revision = 1;
 			break;
 			case 1:
+				nodo->revision = 2;
 				if(nodo->izq!=NULL){
 					nodo = nodo->izq;
 				}
-				nodo->revision = 2;
 			break;
 			case 2:
 				if(nodo->der==NULL){
-					nodo->revision = 0;
-					if(nodo->tipo=2){
-						nodo->padre->revision = 3;
+					if(nodo->tipo == 0){
+						nodo->revision = 3;
+					}else{
+						nodo->revision = 0;
+						//cout<<"nodo->revision: "<<nodo->revision<<endl;
+						if(nodo->tipo==2){
+							nodo->padre->revision = 3;
+						}
+						nodo = nodo->padre;
+						//cout<<"nodoPadre: "<<nodo->dato;
 					}
-					nodo = nodo->padre;
 				}else{
 					nodo = nodo->der;
 				}
@@ -91,6 +99,7 @@ void preorden(struct Nodo *raiz){
 			break;
 		}
 	}
+	raiz->revision = 0;
 }
 
 /* Función que inserta un nodo en el árbol*/
