@@ -18,6 +18,7 @@ void menu();
 struct Nodo* insertarNodo(int info,struct Nodo *raiz);
 struct Nodo* crearNodo(int info);
 void preorden(struct Nodo *raiz);
+void inorden(struct Nodo *raiz);
 
 /* Función principal*/
 int main(){
@@ -36,7 +37,8 @@ int main(){
 			case 2:
 			break;
 			case 3:
-				preorden(raiz);
+				//preorden(raiz);
+				inorden(raiz);
 			break;
 			case 4:
 			break;
@@ -54,6 +56,58 @@ int main(){
 		system("pause");
 		system("cls");
 	}while(op!=5);
+}
+
+/* Función que muestra el recorrido en inorden del árbol*/
+void inorden(struct Nodo *raiz){
+	cout<<"\n\tInorden: ";
+	bool terminado = false;
+	struct Nodo *nodo;
+	nodo = raiz;
+	while(!terminado){
+		switch(nodo->revision){
+			case 0:
+				nodo->revision = 2;
+				if(nodo->izq==NULL){
+					cout<<" "<<nodo->dato;
+				}else{
+					nodo = nodo->izq;
+				}
+			break;
+			case 1:
+				if(nodo->tipo==0){
+					terminado = true;
+					nodo->revision = 0;
+				}if(nodo->tipo==1){
+					nodo->revision = 0;
+					nodo = nodo->padre;
+					cout<<" "<<nodo->dato;
+					nodo->revision = 2;
+				}else{
+					nodo->revision = 0;
+					nodo = nodo->padre;
+				}
+			break;
+			case 2:
+				nodo->revision = 0;
+				if(nodo->der==NULL){
+					if(nodo->tipo==1){
+						nodo = nodo->padre;
+						cout<<" "<<nodo->dato;
+						nodo->revision = 2;
+					}else if(nodo->tipo==0){
+						terminado = true;
+						nodo->revision = 0;
+					}else{
+						nodo = nodo->padre;
+						nodo->revision = 1;
+					}
+				}else{
+					nodo = nodo->der;
+				}
+			break;
+		}
+	}
 }
 
 /* Función que muestra el recorrido en preorden del árbol*/
