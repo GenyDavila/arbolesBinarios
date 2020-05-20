@@ -37,7 +37,7 @@ int main(){
 			case 2:
 			break;
 			case 3:
-				//preorden(raiz);
+				preorden(raiz);
 				inorden(raiz);
 			break;
 			case 4:
@@ -66,7 +66,7 @@ void inorden(struct Nodo *raiz){
 	nodo = raiz;
 	while(!terminado){
 		switch(nodo->revision){
-			case 0:
+			case 0: // revisa si el nodo tiene hijo izquierdo
 				nodo->revision = 2;
 				if(nodo->izq==NULL){
 					cout<<" "<<nodo->dato;
@@ -74,11 +74,11 @@ void inorden(struct Nodo *raiz){
 					nodo = nodo->izq;
 				}
 			break;
-			case 1:
+			case 1: // la revision=1 lo tienen los nodos raíz de los que ya se revisaron ambos lados de sus nodos hijos
 				if(nodo->tipo==0){
-					terminado = true;
 					nodo->revision = 0;
-				}if(nodo->tipo==1){
+					terminado = true;
+				}else if(nodo->tipo==1){
 					nodo->revision = 0;
 					nodo = nodo->padre;
 					cout<<" "<<nodo->dato;
@@ -86,9 +86,10 @@ void inorden(struct Nodo *raiz){
 				}else{
 					nodo->revision = 0;
 					nodo = nodo->padre;
+					nodo->revision = 1;
 				}
 			break;
-			case 2:
+			case 2: // revisa si el nodo tiene hijo derecho
 				nodo->revision = 0;
 				if(nodo->der==NULL){
 					if(nodo->tipo==1){
@@ -100,10 +101,15 @@ void inorden(struct Nodo *raiz){
 						nodo->revision = 0;
 					}else{
 						nodo = nodo->padre;
+						/*cout<<"cambiando a nodo padre..."<<endl;
+						cout<<"nodo padre: "<<nodo->dato<<endl;*/
 						nodo->revision = 1;
+						//cout<<"revision: "<<nodo->revision<<endl;
 					}
 				}else{
+					//cout<<"  nodo: "<<nodo->dato<<endl;
 					nodo = nodo->der;
+					//system("pause");
 				}
 			break;
 		}
