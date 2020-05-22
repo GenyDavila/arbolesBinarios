@@ -20,6 +20,7 @@ struct Nodo* crearNodo(int info);
 void preorden(struct Nodo *raiz);
 void inorden(struct Nodo *raiz);
 void postorden(struct Nodo *raiz);
+void buscarNodo(int n,struct Nodo *raiz);
 
 /* Función principal*/
 int main(){
@@ -36,15 +37,16 @@ int main(){
 				raiz = insertarNodo(info,raiz);
 			break;
 			case 2:
-			break;
-			case 3:
 				preorden(raiz);
 				inorden(raiz);
 				postorden(raiz);
 			break;
-			case 4:
+			case 3:
+				cout<<"\n\tDato a buscar: ";
+				cin>>info;
+				buscarNodo(info,raiz);
 			break;
-			case 5:
+			case 4:
 				cout<<"\n\tSaliendo del programa..."<<endl;
 				cout<<"\t";
 				system("PAUSE");
@@ -57,7 +59,39 @@ int main(){
 		cout<<"\n\t";
 		system("pause");
 		system("cls");
-	}while(op!=5);
+	}while(op!=4);
+}
+
+void buscarNodo(int n,struct Nodo *raiz){
+	bool encontrado = false;
+	bool fallo = false;
+	struct Nodo *nodo;
+	nodo = raiz;
+	if(raiz==NULL){
+		cout<<"\n\tEl arbol esta vacio..."<<endl;
+	}else{
+		while(!encontrado && !fallo){
+			if(n>nodo->dato){
+				if(nodo->der!=NULL){
+					nodo = nodo->der;
+				}else{
+					fallo = true;
+				}
+			}else if(n<nodo->dato){
+				if(nodo->izq!=NULL){
+					nodo = nodo->izq;
+				}else{
+					fallo = true;
+				}
+			}else{
+				cout<<"\tEl nodo se encuentra en el arbol."<<endl;
+				encontrado = true;
+			}
+		}
+		if(fallo){
+			cout<<"\tEl nodo no esta en el arbol."<<endl;
+		}
+	}	
 }
 
 /* Función que muestra el recorrido en postorden del árbol*/
@@ -263,9 +297,8 @@ struct Nodo* crearNodo(int info){
 void menu(){
 	cout<<"\n\t\t\t=== ARBOLES BINARIOS ==="<<endl<<endl;
 	cout<<"\tInsertar nodo.........................................[1]"<<endl;
-	cout<<"\tMostrar arbol.........................................[2]"<<endl;
-	cout<<"\tMostrar recorridos (inorden, preorden, postorden).....[3]"<<endl;
-	cout<<"\tBuscar nodo...........................................[4]"<<endl;
-	cout<<"\tSalir.................................................[5]"<<endl;
+	cout<<"\tMostrar recorridos (inorden, preorden, postorden).....[2]"<<endl;
+	cout<<"\tBuscar nodo...........................................[3]"<<endl;
+	cout<<"\tSalir.................................................[4]"<<endl;
 	cout<<"\n\tSeleccione una opcion: ";
 }
