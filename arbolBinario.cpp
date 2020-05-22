@@ -67,27 +67,20 @@ void postorden(struct Nodo *raiz){
 	nodo = raiz;
 	bool terminado = false;
 	while(!terminado){
-		//system("pause");
-		//cout<<"nodo actual: "<<nodo->dato<<endl;
 		switch(nodo->revision){
 			case 0:
-				/*cout<<"tipo: "<<nodo->tipo<<endl;*/
-				//cout<<"revision 0"<<endl;
 				nodo->revision = 1;
 				if(nodo->izq!=NULL){
 					nodo = nodo->izq;
 				}
 			break;
 			case 1:
-				//cout<<"revision 1"<<endl;
 				nodo->revision = 2;
 				if(nodo->der!=NULL){
 					nodo = nodo->der;
 				}
 			break;
 			case 2:
-				//cout<<"revision 2"<<endl;
-				//cout<<"tipo de nodo: "<<nodo->tipo<<endl;
 				if(nodo->tipo==0){
 					terminado = true;
 				}else if(nodo->tipo==1){
