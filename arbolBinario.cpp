@@ -38,8 +38,8 @@ int main(){
 			case 2:
 			break;
 			case 3:
-				/*preorden(raiz);
-				inorden(raiz);*/
+				preorden(raiz);
+				inorden(raiz);
 				postorden(raiz);
 			break;
 			case 4:
@@ -67,34 +67,36 @@ void postorden(struct Nodo *raiz){
 	nodo = raiz;
 	bool terminado = false;
 	while(!terminado){
-		system("pause");
+		//system("pause");
+		//cout<<"nodo actual: "<<nodo->dato<<endl;
 		switch(nodo->revision){
 			case 0:
-				cout<<"tipo: "<<nodo->tipo<<endl;
-				cout<<"revision 0"<<endl;
+				/*cout<<"tipo: "<<nodo->tipo<<endl;*/
+				//cout<<"revision 0"<<endl;
 				nodo->revision = 1;
-				cout<<nodo->revision<<endl;
 				if(nodo->izq!=NULL){
 					nodo = nodo->izq;
 				}
 			break;
 			case 1:
-				cout<<"revision 1"<<endl;
+				//cout<<"revision 1"<<endl;
 				nodo->revision = 2;
 				if(nodo->der!=NULL){
 					nodo = nodo->der;
 				}
 			break;
 			case 2:
-				cout<<"revision 2"<<endl;
+				//cout<<"revision 2"<<endl;
+				//cout<<"tipo de nodo: "<<nodo->tipo<<endl;
 				if(nodo->tipo==0){
 					terminado = true;
 				}else if(nodo->tipo==1){
 					nodo->revision = 0;
-					cout<<" "<<nodo->dato<<endl;
+					cout<<" "<<nodo->dato;
 					nodo = nodo->padre;
 				}else if(nodo->tipo==2){
 					nodo->revision = 0;
+					cout<<" "<<nodo->dato;
 					nodo = nodo->padre;
 				}
 			break;
