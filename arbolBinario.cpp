@@ -37,9 +37,13 @@ int main(){
 				raiz = insertarNodo(info,raiz);
 			break;
 			case 2:
-				preorden(raiz);
-				inorden(raiz);
-				postorden(raiz);
+				if(raiz!=NULL){
+					preorden(raiz);
+					inorden(raiz);
+					postorden(raiz);
+				}else{
+					cout<<"\tEl arbol esta vacio..."<<endl;
+				}
 			break;
 			case 3:
 				cout<<"\n\tDato a buscar: ";
@@ -149,7 +153,7 @@ void inorden(struct Nodo *raiz){
 					nodo = nodo->izq;
 				}
 			break;
-			case 1: // la revision=1 lo tienen los nodos raíz de los que ya se revisaron ambos lados de sus nodos hijos
+			case 1: // la revision=1 lo tienen los nodos padre de los que ya se revisaron ambos lados de sus nodos hijos
 				if(nodo->tipo==0){
 					nodo->revision = 0;
 					terminado = true;
@@ -259,8 +263,8 @@ struct Nodo* insertarNodo(int info,struct Nodo *raiz){
 					nodo->izq = nuevo;
 					nuevo->tipo = 1;
 					cout<<"\n\tDato insertado correctamente..."<<endl;
-					cout<<"\tNodo padre: "<<nuevo->padre->dato<<endl;
-					cout<<"\tHijo: "<<nuevo->tipo<<endl;
+					//cout<<"\tNodo padre: "<<nuevo->padre->dato<<endl;
+					//cout<<"\tHijo: "<<nuevo->tipo<<endl;
 				}else{
 					nodo = nodo->izq;
 				}
